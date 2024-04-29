@@ -36,8 +36,6 @@ export class CategoriaService {
     async updateCategoria(id: number, updateCategoriaDto: UpdateCategoriaDto) {
         const { novoNome } = updateCategoriaDto;
 
-        console.log(`Id Passado em Service ${id}`)
-        console.log(typeof(id))
 
         const categoriaExistente = await this.prisma.categoria.findUnique({
             where: {
@@ -57,7 +55,6 @@ export class CategoriaService {
                 nome: novoNome
             }
         });
-        console.log(`Categoria Atualizada ${categoriaAtualizada}`)
         return categoriaAtualizada;
     }
 
