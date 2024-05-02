@@ -15,12 +15,13 @@ datasource db {
 
 
 model Post {
-  id Int @id @default(autoincrement())
-  titulo      String @unique
-  categoria Categoria[]
-  publicado  Boolean    @default(false)
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+  id          Int      @id @default(autoincrement())
+  titulo      String   @unique
+  publicado   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  categoria   Categoria @relation(fields: [categoriaId], references: [id])
+  categoriaId Int
 }
 
 model Categoria {
