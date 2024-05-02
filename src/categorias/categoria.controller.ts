@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Param, Body } from "@nestjs/common";
+import { Controller, Delete, Get, Post, Put, Param, Body, ParseIntPipe } from "@nestjs/common";
 import { CategoriaService } from "./categoria.service";
 import { CreateCategoriaDto } from "./dtos/create-categoria.dto";
 import { UpdateCategoriaDto } from "./dtos/update-categoria.dto";
@@ -18,16 +18,12 @@ export class CategoriaController {
     }
 
     @Put(":id")
-    async putCategoria(@Param('id') id: string, @Body() updateCategoriaDto: UpdateCategoriaDto) {
-        const numericId = parseInt(id, 10); 
-        // console.log(`Id Passado ${numericId}`);
-        // console.log(typeof(numericId));
-        return await this.categoriaService.updateCategoria(numericId, updateCategoriaDto);
+    async putCategoria(@Param('id', ParseIntPipe) id: number, @Body() updateCategoriaDto: UpdateCategoriaDto) {
+        return await this.categoriaService.updateCategoria(id, updateCategoriaDto);
     }
 
     @Delete(":id")
-    async deleteCategoria(@Param('id') id: string) {
-        const numericId = parseInt(id, 10); 
-        return await this.categoriaService.deleteCategoria(numericId);
+    async deleteCategoria(@Param('id', ParseIntPipe) id: number) {
+        return await this.categoriaService.deleteCategoria(id);
     }
 }
